@@ -1,0 +1,34 @@
+﻿<h1 *ngIf="isAddMode">Create role</h1>
+<h1 *ngIf="!isAddMode">Edit role/h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-group col-5">
+            <label>Name</label>
+            <input type="text" formControlName="Name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" />
+            <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+                <div *ngIf="f.Name.errors.required">Name is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-5">
+            <label>Status</label>
+            <select formControlName="status" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+               <!-- <option value=""></option>
+                <option value="User">User</option>
+                <option value="Admin">Admin</option> -->
+                <option *ngFor="let stat of statuses">{{stat}}</option>
+            </select>
+            <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                <div *ngIf="f.role.errors.required">Role is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+        </button>
+        <a routerLink="/admin/role" class="btn btn-link">Cancel</a>
+    </div>
+</form>
